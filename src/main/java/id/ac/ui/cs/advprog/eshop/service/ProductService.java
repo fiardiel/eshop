@@ -5,5 +5,10 @@ import java.util.List;
 
 public interface ProductService {
     public Product create(Product product);
+    public boolean delete(int id);
+    public Product get(int id);
+    public Product edit(Product product);
+    public Product increment(Product product);
+    public Product decrement(Product product);
     public List<Product> findAll();
 }

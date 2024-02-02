@@ -35,4 +35,37 @@ public class ProductController {
         model.addAttribute("products", allProducts);
         return "ListProduct";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deletePost(@PathVariable int id) {
+        service.delete(id);
+        return "redirect:/product/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editProductPage(Model model, @PathVariable int id) {
+        Product product = service.get(id);
+        model.addAttribute("product", product);
+        return "EditProduct";
+    }
+
+    @PostMapping("/edit")
+    public String editProductPost(@ModelAttribute Product product) {
+        service.edit(product);
+        return "redirect:list";
+    }
+
+    @GetMapping("/increment/{id}")
+    public String incrementProductPost(@PathVariable int id) {
+        Product product = service.get(id);
+        service.increment(product);
+        return "redirect:/product/list";
+    }
+
+    @GetMapping("/decrement/{id}")
+    public String decrementProductPost(@PathVariable int id) {
+        Product product = service.get(id);
+        service.decrement(product);
+        return "redirect:/product/list";
+    }
  }
