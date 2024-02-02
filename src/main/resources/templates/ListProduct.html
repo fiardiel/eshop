@@ -27,7 +27,13 @@
             <td th:text="${product.productQuantity}"></td>
             <td>
                 <a th:href="@{/product/delete/{id}(id=${product.productId})}" class="btn btn-danger"> Delete </a>
-                <a th:href="@{/product/edit/{id}(id=${product.productId})}" class="btn"> Edit </a>
+                <a th:href="@{/product/edit/{id}(id=${product.productId})}" class="btn btn-primary"> Edit </a>
+                <a th:href="@{/product/increment/{id}(id=${product.productId})}" class="btn btn-success">
+                    <i class="fas fa-plus"></i> +
+                </a>
+                <a th:href="@{/product/decrement/{id}(id=${product.productId})}" class="btn btn-warning">
+                    <i class="fas fa-minus"></i> -
+                </a>
             </td>
         </tr>
         </tbody>

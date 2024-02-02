@@ -37,7 +37,7 @@ public class ProductController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deletePost(@ModelAttribute Product product, Model model, @PathVariable int id) {
+    public String deletePost(@PathVariable int id) {
         service.delete(id);
         return "redirect:/product/list";
     }
@@ -53,5 +53,19 @@ public class ProductController {
     public String editProductPost(@ModelAttribute Product product) {
         service.edit(product);
         return "redirect:list";
+    }
+
+    @GetMapping("/increment/{id}")
+    public String incrementProductPost(@PathVariable int id) {
+        Product product = service.get(id);
+        service.increment(product);
+        return "redirect:/product/list";
+    }
+
+    @GetMapping("/decrement/{id}")
+    public String decrementProductPost(@PathVariable int id) {
+        Product product = service.get(id);
+        service.decrement(product);
+        return "redirect:/product/list";
     }
  }

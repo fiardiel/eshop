@@ -32,6 +32,26 @@ public class ProductRepository {
         return null;
     }
 
+    public Product increment(Product product) {
+        for (Product curProduct : productData) {
+            if (curProduct.getProductId().equals(product.getProductId())) {
+                curProduct.setProductQuantity(curProduct.getProductQuantity() + 1);
+                return curProduct;
+            }
+        }
+        return product;
+    }
+
+    public Product decrement(Product product) {
+        for (Product curProduct : productData) {
+            if (curProduct.getProductId().equals(product.getProductId())) {
+                curProduct.setProductQuantity(curProduct.getProductQuantity()-1);
+                return curProduct;
+            }
+        }
+        return null;
+    }
+
     public Iterator<Product> findAll() {
         return productData.iterator();
     }

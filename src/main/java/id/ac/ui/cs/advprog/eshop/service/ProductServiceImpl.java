@@ -19,9 +19,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product create(Product product) {
-        product.setProductId(Integer.toString(++id));
-        productRepository.create(product);
-        return product;
+        if (product.getProductQuantity() > 0) {
+            product.setProductId(Integer.toString(++id));
+            productRepository.create(product);
+            return product;
+        }
+        return null;
     }
 
     @Override
@@ -32,8 +35,11 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product edit(Product product) {
-        productRepository.edit(product);
-        return product;
+        if (product.getProductQuantity() > 0) {
+            productRepository.edit(product);
+            return product;
+        }
+        return null;
     }
 
     @Override
@@ -54,6 +60,18 @@ public class ProductServiceImpl implements ProductService{
                 break;
             }
         }
+        return product;
+    }
+
+    public Product increment(Product product) {
+        return productRepository.increment(product);
+    }
+
+    public Product decrement(Product product) {
+        if (product.getProductQuantity() > 1) {
+            return productRepository.decrement(product);
+        }
+        productRepository.delete(product);
         return product;
     }
 }

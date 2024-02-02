@@ -8,5 +8,7 @@ public interface ProductService {
     public boolean delete(int id);
     public Product get(int id);
     public Product edit(Product product);
+    public Product increment(Product product);
+    public Product decrement(Product product);
     public List<Product> findAll();
 }
