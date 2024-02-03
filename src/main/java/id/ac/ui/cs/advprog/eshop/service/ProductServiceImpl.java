@@ -1,6 +1,5 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
-
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +8,18 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
     private ProductRepository productRepository;
-    private int id = 0;
 
     @Override
     public Product create(Product product) {
         if (product.getProductQuantity() > 0) {
-            product.setProductId(Integer.toString(++id));
+            product.setProductId(String.valueOf(UUID.randomUUID()));
             productRepository.create(product);
             return product;
         }
@@ -49,12 +48,12 @@ public class ProductServiceImpl implements ProductService{
         return allProduct;
     }
 
-    public Product get(int id) {
+    public Product get(String id) {
         Product product = null;
         Iterator<Product> products = productRepository.findAll();
         while (products.hasNext()) {
             Product cur = products.next();
-            if (cur.getProductId().equals(Integer.toString(id))) {
+            if (cur.getProductId().equals(id)){
                 product = cur;
                 break;
             }
