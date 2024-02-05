@@ -12,44 +12,41 @@ import java.util.List;
 public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
 
-    public Product create(Product product) {
+    public void create(Product product) {
         productData.add(product);
-        return product;
     }
 
-    public boolean delete(Product product) {
-        return productData.remove(product);
+    public void delete(Product product) {
+        productData.remove(product);
     }
 
-    public Product edit(Product product) {
+    public void edit(Product product) {
         for (int i=0; i < productData.size(); i++) {
             Product curProduct = productData.get(i);
             if (curProduct.getProductId().equals(product.getProductId())) {
-                return productData.set(i, product);
+                productData.set(i, product);
+                return;
             }
         }
         // Product not found
-        return null;
     }
 
-    public Product increment(Product product) {
+    public void increment(Product product) {
         for (Product curProduct : productData) {
             if (curProduct.getProductId().equals(product.getProductId())) {
                 curProduct.setProductQuantity(curProduct.getProductQuantity() + 1);
-                return curProduct;
+                return;
             }
         }
-        return product;
     }
 
-    public Product decrement(Product product) {
+    public void decrement(Product product) {
         for (Product curProduct : productData) {
             if (curProduct.getProductId().equals(product.getProductId())) {
                 curProduct.setProductQuantity(curProduct.getProductQuantity()-1);
-                return curProduct;
+                return;
             }
         }
-        return null;
     }
 
     public Iterator<Product> findAll() {
