@@ -16,6 +16,11 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
+    @GetMapping("/")
+    public String home() {
+        return "Home";
+    }
+
     @GetMapping("/create")
     public String createProductPage(Model model){
         Product product = new Product();
@@ -69,4 +74,5 @@ public class ProductController {
         service.decrement(product);
         return "redirect:/product/list";
     }
+
  }
