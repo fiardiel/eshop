@@ -32,7 +32,6 @@ class ProductRepositoryTest {
         assertEquals(product.getProductId(), savedProduct.getProductId());
         assertEquals(product.getProductName(), savedProduct.getProductName());
         assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
-
     }
 
     @Test
@@ -62,5 +61,66 @@ class ProductRepositoryTest {
         savedProduct = productIterator.next();
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testDelete() {
+        Product product1 = new Product();
+        product1.setProductId("3b0a3b55-fb18-4e2b-b4b3-f789c3f52d22");
+        product1.setProductName("Sabun Cuci Joni");
+        product1.setProductQuantity(1);
+        productRepository.create(product1);
+
+        productRepository.delete(product1);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testDeleteMoreThanOne() {
+        Product product1 = new Product(), product2 = new Product();
+        product1.setProductId("0e4000be-56dc-4f75-854e-5063273ab2dc");
+        product1.setProductName("Teh Wuling Pejuang");
+        product1.setProductQuantity(5);
+        productRepository.create(product1);
+
+        product2.setProductId("d009dbb5-2e14-4a0c-94d6-eb4a9eebb0f7");
+        product2.setProductName("CRV Depok ZJC");
+        product2.setProductQuantity(2);
+        productRepository.create(product2);
+
+        productRepository.delete(product1);
+        productRepository.delete(product2);
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testEdit() {
+        Product product = new Product();
+        product.setProductId("0e4000be-56dc-4f75-854e-5063273ab2dc");
+        product.setProductName("Rakha Strong Man Sabab");
+        product.setProductQuantity(5);
+        productRepository.create(product);
+        
+        String editedName = "Alice Baswedan";
+        int editedQuantity = 1;
+        product.setProductName(editedName); product.setProductQuantity(editedQuantity);
+        productRepository.edit(product);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        Product editedProduct = null;
+        while (productIterator.hasNext()) {
+            Product curProduct = productIterator.next();
+            if (curProduct.getProductId().equals(product.getProductId())) {
+                editedProduct = curProduct;
+                break;
+            }
+        }
+
+        assertNotNull(editedProduct);
+        assertEquals(editedProduct.getProductName(), editedName);
+        assertEquals(editedProduct.getProductQuantity(), editedQuantity);
     }
 }
