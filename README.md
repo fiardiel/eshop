@@ -1,9 +1,11 @@
-<h2> Reflection </h2>
+<h1> ESHOP ADV PROG </h1>
+
+<h2> Reflection 1 </h2>
 
 What I've learned from the tutorial is that Java Springboot uses
 MVC instead of MVT like Python Django. This makes the view and models
 completely seperated. To connect them, we have the controller which is more
-compact than Django's MVT. The advantages of MVC is that since
+compact than Django's MVT. The advantages of MVC are that since
 model (backend) and view(frontend) is seperated, it could be clearer
 for us to improve/develop each of the parts separately. This method is
 a good implementation of separation of concern.
@@ -19,3 +21,19 @@ I learned about how tidy I can be by commiting small things into different small
 if it doesn't work well, you can just let it be without burden, and if you got what you intended,
 then it's a small but significant progress which is beneficial. I intend to learn more about
 git commands that I don't know and delve deeper into those that I already know.
+
+<h2> Reflection 2 </h2>
+
+1. I felt relieved after creating the unit and functional tests. This is due to the fact that my program
+can run without (most probably) any errors since I've already tested using the positive and negative occasion
+of the tests. I've also tested that we can open the home page and create a product and also displaying it.
+For the unit tests, I need to make at least 2 tests for each method, since we want to get the positive and negative
+occasions. This is due to the fact that I want to test my code coverage if there's any error in the program and what
+your program should do if there is any error. I ran my code coverage test, and it says 83% for class, 53% for method,
+and 41% for line coverage. This means that I haven't created enough tests for my code, but this doesn't mean I have
+many errors, nor have few errors.
+
+2. The code would be fine since it's already clean. However, the functional test procedure would be repetitive
+since you've already done a similar procedure with the same setups and initial variables. It would be advised to use the
+prior setups and initial variables so that your later code isn't redundant.
+
