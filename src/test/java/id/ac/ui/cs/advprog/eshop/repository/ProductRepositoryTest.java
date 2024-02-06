@@ -149,10 +149,15 @@ class ProductRepositoryTest {
 
     @Test
     void testEditNonExistingProduct() {
-        // Create a product with a known ID
+        Product product = new Product();
+        product.setProductId("0e4000be-56dc-4f75-854e-5063273ab2dc");
+        product.setProductName("Thamudz MD");
+        product.setProductQuantity(3);
+        productRepository.create(product);
+
         String dummyId = "dummyId";
         String dummyName = "dummyName";
-        int dummyQuantity = 10;
+        int dummyQuantity = 69;
         Product dummyProduct = new Product();
         dummyProduct.setProductId(dummyId);
         dummyProduct.setProductName(dummyName);
@@ -161,11 +166,9 @@ class ProductRepositoryTest {
         productRepository.edit(dummyProduct, dummyId);
 
         Iterator<Product> productIterator = productRepository.findAll();
-        while (productIterator.hasNext()) {
-            Product curProduct = productIterator.next();
-            assertNotEquals(curProduct.getProductId(), dummyId);
-            assertNotEquals(curProduct.getProductName(), dummyName);
-            assertNotEquals(curProduct.getProductQuantity(), dummyQuantity);
-        }
+        Product curProduct = productIterator.next();
+        assertNotEquals(curProduct.getProductId(), dummyId);
+        assertNotEquals(curProduct.getProductName(), dummyName);
+        assertNotEquals(curProduct.getProductQuantity(), dummyQuantity);
     }
 }
