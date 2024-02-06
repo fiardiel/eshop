@@ -171,4 +171,52 @@ class ProductRepositoryTest {
         assertNotEquals(curProduct.getProductName(), dummyName);
         assertNotEquals(curProduct.getProductQuantity(), dummyQuantity);
     }
+
+    @Test
+    void testIncrement() {
+        Product product1 = new Product();
+        Product product2 = new Product();
+        int qty = 10;
+
+        product1.setProductId("0e4000be-56dc-4f75-854e-5063273ab2dc");
+        product1.setProductName("Fried Chicken");
+        product1.setProductQuantity(qty);
+        productRepository.create(product1);
+
+        // Dummy data
+        product2.setProductId("3b0a3b55-fb18-4e2b-b4b3-f789c3f52d22");
+        product2.setProductName("Watermelon");
+        product2.setProductQuantity(12);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        Product savedProduct = productIterator.next();
+        productRepository.increment(savedProduct);
+        productRepository.increment(product2);
+
+        assertEquals(savedProduct.getProductQuantity(), qty + 1);
+    }
+
+    @Test
+    void testDecrement() {
+        Product product1 = new Product();
+        Product product2 = new Product();
+        int qty = 10;
+
+        product1.setProductId("0e4000be-56dc-4f75-854e-5063273ab2dc");
+        product1.setProductName("Fried Chicken");
+        product1.setProductQuantity(qty);
+        productRepository.create(product1);
+
+        // Dummy data
+        product2.setProductId("3b0a3b55-fb18-4e2b-b4b3-f789c3f52d22");
+        product2.setProductName("Watermelon");
+        product2.setProductQuantity(12);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        Product savedProduct = productIterator.next();
+        productRepository.decrement(savedProduct);
+        productRepository.decrement(product2);
+
+        assertEquals(savedProduct.getProductQuantity(), qty - 1);
+    }
 }
