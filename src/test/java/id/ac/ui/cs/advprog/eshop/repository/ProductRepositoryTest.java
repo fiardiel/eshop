@@ -98,16 +98,17 @@ class ProductRepositoryTest {
 
     @Test
     void testEdit() {
+        String id = "0e4000be-56dc-4f75-854e-5063273ab2dc"; String name = "Rakha Strong Man Sabab"; int qty = 5;
         Product product = new Product();
-        product.setProductId("0e4000be-56dc-4f75-854e-5063273ab2dc");
-        product.setProductName("Rakha Strong Man Sabab");
-        product.setProductQuantity(5);
+        product.setProductId(id);
+        product.setProductName(name);
+        product.setProductQuantity(qty);
         productRepository.create(product);
         
         String editedName = "Alice Baswedan";
         int editedQuantity = 1;
         product.setProductName(editedName); product.setProductQuantity(editedQuantity);
-        productRepository.edit(product);
+        productRepository.edit(product, id);
 
         Iterator<Product> productIterator = productRepository.findAll();
         Product editedProduct = null;

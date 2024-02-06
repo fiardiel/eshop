@@ -20,10 +20,11 @@ public class ProductRepository {
         productData.remove(product);
     }
 
-    public void edit(Product product) {
+    public void edit(Product product, String id) {
         for (int i=0; i < productData.size(); i++) {
             Product curProduct = productData.get(i);
-            if (curProduct.getProductId().equals(product.getProductId())) {
+            if (curProduct.getProductId().equals(id)) {
+                product.setProductId(id);
                 productData.set(i, product);
                 return;
             }

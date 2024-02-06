@@ -11,9 +11,7 @@
 <div class="container">
     <h3>Edit Product</h3>
 
-    <form th:action="@{/product/edit}" th:object="${product}" method="post">
-        <!-- Hidden input field for product ID -->
-        <input type="hidden" th:field="*{productId}"/>
+    <form th:action="@{/product/edit/{id}(id=${product.productId})}" th:object="${product}" method="post">
 
         <div class="form-group">
             <label for="nameInput">Name</label>
