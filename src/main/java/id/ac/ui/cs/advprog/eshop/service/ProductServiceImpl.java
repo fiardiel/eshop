@@ -46,6 +46,7 @@ public class ProductServiceImpl implements ProductService{
         return allProduct;
     }
 
+    @Override
     public Product get(String id) {
         Product product = null;
         Iterator<Product> products = productRepository.findAll();
@@ -59,10 +60,12 @@ public class ProductServiceImpl implements ProductService{
         return product;
     }
 
+    @Override
     public void increment(Product product) {
         productRepository.increment(product);
     }
 
+    @Override
     public void decrement(Product product) {
         if (product.getProductQuantity() > 1) {
             productRepository.decrement(product);
