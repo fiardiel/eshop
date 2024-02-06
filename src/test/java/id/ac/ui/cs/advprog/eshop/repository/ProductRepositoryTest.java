@@ -78,7 +78,7 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void testDeleteMoreThanOne() {
+    void testDeleteIfMoreThanOneProduct() {
         Product product1 = new Product(), product2 = new Product();
         product1.setProductId("0e4000be-56dc-4f75-854e-5063273ab2dc");
         product1.setProductName("Teh Wuling Pejuang");
@@ -91,9 +91,10 @@ class ProductRepositoryTest {
         productRepository.create(product2);
 
         productRepository.delete(product1);
-        productRepository.delete(product2);
         Iterator<Product> productIterator = productRepository.findAll();
-        assertFalse(productIterator.hasNext());
+        Product curProduct = productIterator.next();
+        assertNotEquals(curProduct, product1);
+        assertEquals(curProduct, product2);
     }
 
     @Test
