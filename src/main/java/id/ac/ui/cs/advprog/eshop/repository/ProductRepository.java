@@ -50,6 +50,17 @@ public class ProductRepository {
         }
     }
 
+    public Product get(String id) {
+        Iterator<Product> productIterator = productData.iterator();
+        while (productIterator.hasNext()) {
+            Product curProduct = productIterator.next();
+            if (curProduct.getProductId().equals(id)) {
+                return curProduct;
+            }
+        }
+        return null;
+    }
+
     public Iterator<Product> findAll() {
         return productData.iterator();
     }

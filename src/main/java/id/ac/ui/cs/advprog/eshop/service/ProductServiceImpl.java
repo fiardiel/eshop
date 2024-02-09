@@ -48,16 +48,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product get(String id) {
-        Product product = null;
-        Iterator<Product> products = productRepository.findAll();
-        while (products.hasNext()) {
-            Product cur = products.next();
-            if (cur.getProductId().equals(id)){
-                product = cur;
-                break;
-            }
-        }
-        return product;
+        return productRepository.get(id);
     }
 
     @Override
