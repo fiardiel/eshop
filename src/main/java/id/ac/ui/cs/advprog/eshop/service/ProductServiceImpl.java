@@ -17,11 +17,13 @@ public class ProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
 
     @Override
-    public void create(Product product) {
+    public Product create(Product product) {
         if (product.getProductQuantity() > 0) {
             product.setProductId(String.valueOf(UUID.randomUUID()));
             productRepository.create(product);
+            return product;
         }
+        return null;
     }
 
     @Override
@@ -36,6 +38,8 @@ public class ProductServiceImpl implements ProductService{
         if (product.getProductQuantity() > 0) {
             productRepository.edit(product, id);
         }
+        productRepository.edit(product, id);
+        productRepository.delete(product);
     }
 
     @Override
