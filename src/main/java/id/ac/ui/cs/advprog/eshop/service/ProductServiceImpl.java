@@ -39,6 +39,7 @@ public class ProductServiceImpl implements ProductService{
     public void edit(Product product, String id) {
         if (product.getProductQuantity() > 0) {
             productRepository.edit(product, id);
+            return;
         }
         productRepository.edit(product, id);
         productRepository.delete(product);
