@@ -86,14 +86,12 @@ class ProductServiceTest {
 
     @Test
     void testDeleteNegative() {
-        Product dummyProduct = null;
-
         List<Product> productList = new ArrayList<>();
         productList.add(product);
 
         when(productRepository.findAll()).thenReturn(productList.iterator());
 
-        service.delete(dummyProduct);
+        service.delete(null);
 
         List<Product> products = service.findAll();
         assertTrue(products.iterator().hasNext());
@@ -104,7 +102,7 @@ class ProductServiceTest {
     void testGet() {
         List<Product> productList = new ArrayList<>();
         productList.add(product);
-        
+
         when(productRepository.findAll()).thenReturn(productList.iterator());
 
         when(productRepository.get(product.getProductId())).thenReturn(product);
@@ -186,9 +184,9 @@ class ProductServiceTest {
         when(productRepository.findAll()).thenReturn(productList.iterator());
 
         service.increment(product);
-        assertEquals(productList.getFirst().getProductQuantity(), 2);
+        assertEquals(2, productList.getFirst().getProductQuantity());
         service.decrement(product);
-        assertEquals(productList.getFirst().getProductQuantity(), 1);
+        assertEquals(1, productList.getFirst().getProductQuantity());
         service.decrement(product);
 
         List<Product> products = service.findAll();
