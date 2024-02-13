@@ -1,7 +1,8 @@
 <h1> ESHOP ADV PROG </h1>
 
-<h2> Reflection 1 </h2>
+## Module 1
 
+### Reflection 1
 What I've learned from the tutorial is that Java Springboot uses
 MVC instead of MVT like Python Django. This makes the view and models
 completely seperated. To connect them, we have the controller which is more
@@ -22,8 +23,7 @@ if it doesn't work well, you can just let it be without burden, and if you got w
 then it's a small but significant progress which is beneficial. I intend to learn more about
 git commands that I don't know and delve deeper into those that I already know.
 
-<h2> Reflection 2 </h2>
-
+### Reflection 2
 1. I felt relieved after creating the unit and functional tests. This is due to the fact that my program
 can run without (most probably) any errors since I've already tested using the positive and negative occasion
 of the tests. I've also tested that we can open the home page and create a product and also displaying it.
@@ -36,4 +36,16 @@ many errors, nor have few errors.
 2. The code would be fine since it's already clean. However, the functional test procedure would be repetitive
 since you've already done a similar procedure with the same setups and initial variables. It would be advised to use the
 prior setups and initial variables so that your later code isn't redundant.
+
+   
+## Module 2
+### Reflection
+1. I got code redundancy in the product controller. I have multiple return values that are repetitive, which requires
+me to create a constant and static variable regarding that return value (a redirect link). I also got the assertEquals
+argument incorrectly, the former should be actual value and the latter should be expected value. There are other 
+code quality issues that I encounter which I forgot
+2. In my case, the current implementation has met the definition of CI/CD. It met the definition of CI because I
+integrated my app by implementing testing tools such as OSSF scorecard, JUnit, JaCoCo, and also SonarCloud. After 
+the integration process, my app continuously deploys the current version of the app based on the repository, which met
+the definition of CD.
 
