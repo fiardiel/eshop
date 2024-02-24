@@ -51,7 +51,7 @@ the definition of CD.
 
 ## Module 3
 ### Reflection
-1. I have implemented SRP, DIP, and OCP, and LSP. 
+1. I have implemented SRP, DIP, and LSP. 
    - DIP is short for Dependencies Inversion Principle which suggests that
    higher-level modules should not rely on concrete implementations of the lower-level module, rather both of them
    should depend on abstraction. I used this principle on the services to rely on the abstraction of the repository 
@@ -59,4 +59,13 @@ the definition of CD.
    - SRP (short for Single Responsibility Principle) suggest that a class should only have a single responsibility. In 
    this case, an example would be having 3 controllers, `CarController`, `HomeController`, and `ProductController`, 
    which have 3 different functionalities.
-   - LSP (short for Liskov Substitution Principle) 
+   - LSP (short for Liskov Substitution Principle) suggests that for every child-class, they inherit everything from
+   the parent-class without disturbing the functional flow. I implemented it in the `CarController` class since it 
+   has different functionality from the parent-class, hence the subclass can't substitute the parent class. Therefore,
+   I remove the 'extends' part
+   
+2. The advantage of SOLID principles lies in creating modular, organized code that is easier to maintain, modify, and 
+understand, particularly in team settings.
+
+3. The disadvantages of not adhering to SOLID principles include code that is harder to maintain, prone to bugs, 
+difficult to extend or modify, and less understandable, leading to increased technical debt and reduced scalability.
