@@ -49,3 +49,14 @@ integrated my app by implementing testing tools such as OSSF scorecard, JUnit, J
 the integration process, my app continuously deploys the current version of the app based on the repository, which met
 the definition of CD.
 
+## Module 3
+### Reflection
+1. I have implemented SRP, DIP, and OCP, and LSP. 
+   - DIP is short for Dependencies Inversion Principle which suggests that
+   higher-level modules should not rely on concrete implementations of the lower-level module, rather both of them
+   should depend on abstraction. I used this principle on the services to rely on the abstraction of the repository 
+   instead of using the concrete implementation
+   - SRP (short for Single Responsibility Principle) suggest that a class should only have a single responsibility. In 
+   this case, an example would be having 3 controllers, `CarController`, `HomeController`, and `ProductController`, 
+   which have 3 different functionalities.
+   - LSP (short for Liskov Substitution Principle) 
