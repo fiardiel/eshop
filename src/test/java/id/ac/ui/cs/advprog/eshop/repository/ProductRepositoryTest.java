@@ -13,7 +13,7 @@ import java.util.Iterator;
 @ExtendWith(MockitoExtension.class)
 class ProductRepositoryTest {
     @InjectMocks
-    ProductRepository productRepository;
+    ProductRepositoryImpl productRepository;
     @InjectMocks
     Product product1;
     @InjectMocks
