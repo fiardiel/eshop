@@ -69,3 +69,12 @@ understand, particularly in team settings.
 
 3. The disadvantages of not adhering to SOLID principles include code that is harder to maintain, prone to bugs, 
 difficult to extend or modify, and less understandable, leading to increased technical debt and reduced scalability.
+
+
+## Module 4
+### Reflection
+1. The TDD principle is useful for me since I want my project to function as my target. By coding the modules first
+before the tests, we could get errors or bugs. If we implement the tests first, we can get the intended output and 
+code more safely and catch more bugs in early development.
+
+2. My code has implemented the F.I.R.S.T. Principle
