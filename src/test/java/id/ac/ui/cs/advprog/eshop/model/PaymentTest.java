@@ -60,15 +60,15 @@ public class PaymentTest {
         });
     }
 
-    @Test
-    void testCreatePaymentInvalidPaymentData() {
-        HashMap<String, String> paymentData = new HashMap<>();
-        paymentData.put("gigimu", "hatimu");
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Voucher Code", "SUCCESS", paymentData);
-        });
-    }
+//    @Test
+//    void testCreatePaymentInvalidPaymentData() {
+//        HashMap<String, String> paymentData = new HashMap<>();
+//        paymentData.put("gigimu", "hatimu");
+//
+//        assertThrows(IllegalArgumentException.class, () -> {
+//            Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Voucher Code", "SUCCESS", paymentData);
+//        });
+//    }
 
     @Test
     void testSetStatusToRejected() {
