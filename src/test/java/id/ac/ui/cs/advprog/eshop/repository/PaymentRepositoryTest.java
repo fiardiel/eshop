@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class PaymentRepositoryTest {
-    PaymentRepository paymentRepository = new OrderRepository();
+    PaymentRepository paymentRepository = new PaymentRepository();
     List<Payment> paymentList = new ArrayList<>();
     List<Order> orders = new ArrayList<>();
     List<Product> products = new ArrayList<>();
@@ -43,17 +43,17 @@ public class PaymentRepositoryTest {
         paymentDataTransfer.put("bankName", "Jank Bago");
         paymentDataTransfer.put("referenceCode", "1234567890");
 
-        Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Bank Transfer", "SUCCESS", new HashMap<>());
+        Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Bank Transfer", "SUCCESS", paymentDataTransfer);
         paymentList.add(payment1);
-        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af385fb078", "Voucher Code", "SUCCESS", new HashMap<>());
+        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af385fb078", "Voucher Code", "SUCCESS", paymentDataVoucher);
         paymentList.add(payment2);
-        Payment payment3 = new Payment("e334ef40-9eff-4da8-9487-8ee697ecbf1e", "Bank Transfer", "REJECTED", new HashMap<>());
+        Payment payment3 = new Payment("e334ef40-9eff-4da8-9487-8ee697ecbf1e", "Bank Transfer", "REJECTED", paymentDataTransfer);
         paymentList.add(payment3);
     }
 
     @Test
     void testAddPayment() {
-        Payment payment = paymentList.get(1);
+        Payment payment = paymentList.getFirst();
         Payment result = paymentRepository.add(payment);
 
         assertEquals(payment.getId(), result.getId());
