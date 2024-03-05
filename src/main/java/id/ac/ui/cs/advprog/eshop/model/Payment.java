@@ -1,9 +1,9 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import enums.PaymentMethods;
 import enums.PaymentStatus;
 import lombok.Getter;
 
-import java.util.Arrays;
 import java.util.HashMap;
 @Getter
 public class Payment {
@@ -12,19 +12,18 @@ public class Payment {
     String status;
     HashMap<String, String> paymentData;
 
-    public Payment(String id, String method, String status, HashMap<String, String> paymentData) {
+    public Payment(String id, String method, HashMap<String, String> paymentData) {
         if (paymentData.isEmpty()) {
             throw new IllegalArgumentException();
         }
 
-        if (!PaymentStatus.contains(status)) {
+        if (!PaymentMethods.contains(method)) {
             throw new IllegalArgumentException();
-        } else {
-            this.id = id;
-            this.method = method;
-            this.status = status;
-            this.paymentData = paymentData;
         }
+
+        this.id = id;
+        this.method = method;
+        this.paymentData = paymentData;
     }
 
     public void setStatus(String status) {
