@@ -10,4 +10,5 @@ public interface PaymentService {
     public Payment addPayment(Order order, String method, HashMap<String, String> paymentData);
     public Payment getPayment(String id);
     public List<Payment> getAllPayments();
+    public Payment setStatus(Payment payment, String status);
 }

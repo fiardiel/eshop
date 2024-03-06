@@ -117,13 +117,16 @@ class PaymentServiceTest {
     void testSetStatusToSuccess() {
         Payment payment = payments.get(1);
         Order order = orders.get(1);
+        order.setStatus(PaymentStatus.SUCCESS.getValue());
         Payment editedStatusPayment = new Payment(payment.getId(), payment.getMethod(), PaymentStatus.SUCCESS.getValue(), payment.getPaymentData());
         doReturn(payment).when(paymentRepository).add(any(Payment.class));
         doReturn(order).when(orderRepository).save(any(Order.class));
+        doReturn(order).when(orderRepository).findById(payment.getId());
 
         Payment result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
         verify(paymentRepository, times(1)).add(any(Payment.class));
         verify(orderRepository, times(1)).save(any(Order.class));
+        verify(orderRepository, times(1)).findById(payment.getId());
         assertEquals(editedStatusPayment.getStatus(), result.getStatus());
         assertEquals(PaymentStatus.SUCCESS.getValue(), order.getStatus());
     }
@@ -132,15 +135,18 @@ class PaymentServiceTest {
     void testSetStatusToRejected() {
         Payment payment = payments.get(1);
         Order order = orders.get(1);
+        order.setStatus("FAILED");
         Payment editedStatusPayment = new Payment(payment.getId(), payment.getMethod(), PaymentStatus.REJECTED.getValue(), payment.getPaymentData());
         doReturn(payment).when(paymentRepository).add(any(Payment.class));
         doReturn(order).when(orderRepository).save(any(Order.class));
+        doReturn(order).when(orderRepository).findById(payment.getId());
 
         Payment result = paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
         verify(paymentRepository, times(1)).add(any(Payment.class));
         verify(orderRepository, times(1)).save(any(Order.class));
+        verify(orderRepository, times(1)).findById(payment.getId());
         assertEquals(editedStatusPayment.getStatus(), result.getStatus());
-        assertEquals(PaymentStatus.REJECTED.getValue(), order.getStatus());
+        assertEquals("FAILED", order.getStatus());
     }
 
     @Test
