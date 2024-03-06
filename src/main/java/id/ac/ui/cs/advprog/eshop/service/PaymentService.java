@@ -11,4 +11,6 @@ public interface PaymentService {
     public Payment getPayment(String id);
     public List<Payment> getAllPayments();
     public Payment setStatus(Payment payment, String status);
+    public Payment pay(Payment payment, Order order);
+
 }

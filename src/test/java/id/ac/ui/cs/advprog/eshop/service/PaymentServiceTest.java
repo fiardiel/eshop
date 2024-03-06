@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import enums.OrderStatus;
 import enums.PaymentMethods;
 import enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
@@ -157,12 +158,8 @@ class PaymentServiceTest {
 
     @Test
     void testPayIfMethodIsVoucher() {
-        // The futurely implemented subfeature is to check if the voucher code is valid
-        // the voucher code is valid when the length is 16, and the first 5 characters are "ESHOP", and contains 8 digits
-        // the voucher code is invalid when the length is not 16, or the first 5 characters are not "ESHOP", or contains 8 digits
-
         HashMap<String, String> paymentData = new HashMap<>();
-        paymentData.put("voucherCode", "ESHOP-12345678");
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.VOUCHER.getValue(), paymentData);
         Order order = orders.get(1);
         Order editedOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), PaymentStatus.SUCCESS.getValue());
@@ -200,23 +197,40 @@ class PaymentServiceTest {
     @Test
     void testPayIfMethodIsVoucherAndVoucherCodeIsInvalid() {
         HashMap<String, String> paymentData = new HashMap<>();
-        paymentData.put("voucherCode", "ESHOP-123");
+        paymentData.put("voucherCode", "ESHOP");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.VOUCHER.getValue(), paymentData);
         Order order = orders.get(1);
+        Order editedOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), OrderStatus.FAILED.getValue());
         doReturn(payment).when(paymentRepository).add(any(Payment.class));
+        doReturn(editedOrder).when(orderRepository).save(any(Order.class));
         doReturn(order).when(orderRepository).findById(payment.getId());
 
-        assertThrows(IllegalArgumentException.class, () -> paymentService.pay(payment, order));
+        Payment result = paymentService.pay(payment, order);
+        verify(paymentRepository, times(1)).add(any(Payment.class));
+        verify(orderRepository, times(1)).save(any(Order.class));
+        verify(orderRepository, times(1)).findById(payment.getId());
+        assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), editedOrder.getStatus());
     }
 
     @Test
     void testPayIfMethodIsBankTransferAndPaymentDataIsInvalid() {
         HashMap<String, String> paymentData = new HashMap<>();
+        paymentData.put("bankName", "");
+        paymentData.put("referenceCode", "");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.BANKTRANSFER.getValue(), paymentData);
         Order order = orders.get(1);
+        Order editedOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), OrderStatus.FAILED.getValue());
         doReturn(payment).when(paymentRepository).add(any(Payment.class));
+        doReturn(editedOrder).when(orderRepository).save(any(Order.class));
         doReturn(order).when(orderRepository).findById(payment.getId());
 
-        assertThrows(IllegalArgumentException.class, () -> paymentService.pay(payment, order));
+        Payment result = paymentService.pay(payment, order);
+        verify(paymentRepository, times(1)).add(any(Payment.class));
+        verify(orderRepository, times(1)).save(any(Order.class));
+        verify(orderRepository, times(1)).findById(payment.getId());
+        assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), editedOrder.getStatus());
     }
+
 }
