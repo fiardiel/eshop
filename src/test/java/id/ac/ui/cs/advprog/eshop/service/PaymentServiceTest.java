@@ -154,4 +154,69 @@ class PaymentServiceTest {
         Payment payment = payments.get(1);
         assertThrows(IllegalArgumentException.class, () -> paymentService.setStatus(payment, "MEOW"));
     }
+
+    @Test
+    void testPayIfMethodIsVoucher() {
+        // The futurely implemented subfeature is to check if the voucher code is valid
+        // the voucher code is valid when the length is 16, and the first 5 characters are "ESHOP", and contains 8 digits
+        // the voucher code is invalid when the length is not 16, or the first 5 characters are not "ESHOP", or contains 8 digits
+
+        HashMap<String, String> paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "ESHOP-12345678");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.VOUCHER.getValue(), paymentData);
+        Order order = orders.get(1);
+        Order editedOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), PaymentStatus.SUCCESS.getValue());
+        doReturn(payment).when(paymentRepository).add(any(Payment.class));
+        doReturn(editedOrder).when(orderRepository).save(any(Order.class));
+        doReturn(order).when(orderRepository).findById(payment.getId());
+
+        Payment result = paymentService.pay(payment, order);
+        verify(paymentRepository, times(1)).add(any(Payment.class));
+        verify(orderRepository, times(1)).save(any(Order.class));
+        verify(orderRepository, times(1)).findById(payment.getId());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), editedOrder.getStatus());
+    }
+
+    @Test
+    void testPayIfMethodIsBankTransfer() {
+        HashMap<String, String> paymentData = new HashMap<>();
+        paymentData.put("bankName", "Jank Bago");
+        paymentData.put("referenceCode", "1234567890");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.BANKTRANSFER.getValue(), paymentData);
+        Order order = orders.get(1);
+        Order editedOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), PaymentStatus.SUCCESS.getValue());
+        doReturn(payment).when(paymentRepository).add(any(Payment.class));
+        doReturn(editedOrder).when(orderRepository).save(any(Order.class));
+        doReturn(order).when(orderRepository).findById(payment.getId());
+
+        Payment result = paymentService.pay(payment, order);
+        verify(paymentRepository, times(1)).add(any(Payment.class));
+        verify(orderRepository, times(1)).save(any(Order.class));
+        verify(orderRepository, times(1)).findById(payment.getId());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), editedOrder.getStatus()); }
+
+    @Test
+    void testPayIfMethodIsVoucherAndVoucherCodeIsInvalid() {
+        HashMap<String, String> paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "ESHOP-123");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.VOUCHER.getValue(), paymentData);
+        Order order = orders.get(1);
+        doReturn(payment).when(paymentRepository).add(any(Payment.class));
+        doReturn(order).when(orderRepository).findById(payment.getId());
+
+        assertThrows(IllegalArgumentException.class, () -> paymentService.pay(payment, order));
+    }
+
+    @Test
+    void testPayIfMethodIsBankTransferAndPaymentDataIsInvalid() {
+        HashMap<String, String> paymentData = new HashMap<>();
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.BANKTRANSFER.getValue(), paymentData);
+        Order order = orders.get(1);
+        doReturn(payment).when(paymentRepository).add(any(Payment.class));
+        doReturn(order).when(orderRepository).findById(payment.getId());
+
+        assertThrows(IllegalArgumentException.class, () -> paymentService.pay(payment, order));
+    }
 }
