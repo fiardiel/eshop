@@ -77,4 +77,7 @@ difficult to extend or modify, and less understandable, leading to increased tec
 before the tests, we could get errors or bugs. If we implement the tests first, we can get the intended output and 
 code more safely and catch more bugs in early development.
 
-2. My code has implemented the F.I.R.S.T. Principle
+2. The F.I.R.S.T. principle is a set of guidelines for writing good tests. It stands for Fast, Independent, Repeatable,
+Self-Validating, and Timely. My code has implemented the F.I.R.S.T. principle. It is fast because it runs quickly,
+independent because it doesn't rely on any other tests, repeatable because it produces the same result every time,
+self-validating because it can be run automatically, and timely because it is written before the code it tests.

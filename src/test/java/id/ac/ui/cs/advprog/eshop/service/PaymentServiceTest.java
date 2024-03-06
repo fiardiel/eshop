@@ -67,7 +67,7 @@ class PaymentServiceTest {
     @Test
     void testAddPayment() {
         Payment payment = payments.get(1);
-        Order order = orders.get(1); // Mock Order object
+        Order order = orders.get(1);
         doReturn(payment).when(paymentRepository).add(any(Payment.class));
 
         Payment result = paymentService.addPayment(order, payment.getMethod(), payment.getPaymentData());
