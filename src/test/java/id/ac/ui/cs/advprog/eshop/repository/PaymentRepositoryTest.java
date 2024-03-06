@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import enums.PaymentMethods;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 public class PaymentRepositoryTest {
     PaymentRepository paymentRepository = new PaymentRepository();
@@ -43,11 +45,11 @@ public class PaymentRepositoryTest {
         paymentDataTransfer.put("bankName", "Jank Bago");
         paymentDataTransfer.put("referenceCode", "1234567890");
 
-        Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Bank Transfer",  paymentDataTransfer);
+        Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.BANKTRANSFER.getValue(),  paymentDataTransfer);
         paymentList.add(payment1);
-        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af385fb078", "Voucher Code", paymentDataVoucher);
+        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af385fb078", PaymentMethods.VOUCHER.getValue(), paymentDataVoucher);
         paymentList.add(payment2);
-        Payment payment3 = new Payment("e334ef40-9eff-4da8-9487-8ee697ecbf1e", "Bank Transfer", paymentDataTransfer);
+        Payment payment3 = new Payment("e334ef40-9eff-4da8-9487-8ee697ecbf1e", PaymentMethods.BANKTRANSFER.getValue(), paymentDataTransfer);
         paymentList.add(payment3);
     }
 

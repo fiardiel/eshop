@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface PaymentService {
-    public void addPayment(Order order, String method, HashMap<String, String> paymentData);
-    public void updatePaymentStatus(String id, String status);
+    public Payment addPayment(Order order, String method, HashMap<String, String> paymentData);
     public Payment getPayment(String id);
     public List<Payment> getAllPayments();
 }

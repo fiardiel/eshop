@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
 
+import enums.PaymentMethods;
 import enums.PaymentStatus;
 import org.junit.jupiter.api.Test;
 
@@ -15,16 +16,16 @@ public class PaymentTest {
         HashMap<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP-123");
 
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Voucher Code", paymentData);
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.VOUCHER.getValue(), paymentData);
         assertEquals("13652556-012a-4c07-b546-54eb1396d79b", payment.getId());
-        assertEquals("Voucher Code", payment.getMethod());
+        assertEquals("VOUCHER", payment.getMethod());
         assertEquals(paymentData, payment.getPaymentData());
     }
     @Test
     void testCreatePaymentEmptyPaymentData() {
         HashMap<String, String> paymentData = new HashMap<>();
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Bank Transfer", paymentData);
+            Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.BANKTRANSFER.getValue(), paymentData);
         });
     }
 
@@ -43,8 +44,8 @@ public class PaymentTest {
         HashMap<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "Ashiap");
 
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Voucher Code", paymentData);
-        payment.setStatus("REJECTED");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.VOUCHER.getValue(), paymentData);
+        payment.setStatus(PaymentStatus.REJECTED.getValue());
         assertEquals("REJECTED", payment.getStatus());
     }
 
@@ -53,7 +54,7 @@ public class PaymentTest {
         HashMap<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP-123");
 
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Voucher Code", paymentData);
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.VOUCHER.getValue(), paymentData);
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("MEOW"));
     }
 
@@ -62,8 +63,8 @@ public class PaymentTest {
         HashMap<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP-123");
 
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Voucher Code", paymentData);
-        payment.setStatus("SUCCESS");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethods.VOUCHER.getValue(), paymentData);
+        payment.setStatus(PaymentStatus.SUCCESS.getValue());
         assertEquals("SUCCESS", payment.getStatus());
     }
 }
